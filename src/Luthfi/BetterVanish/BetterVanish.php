@@ -11,6 +11,7 @@ use pocketmine\utils\Config;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\utils\TextFormat as TF;
 
 class BetterVanish extends PluginBase implements Listener {
 
@@ -54,10 +55,14 @@ class BetterVanish extends PluginBase implements Listener {
         }
 
         $player->sendMessage(TF::colorize($this->getConfig()->get("prefix", "[BetterVanish] ") . $this->getConfig()->get("vanish-message", "&aYou are now vanished!")));
+
+        if ($this->getConfig()->get("fake-join-leave-message", true)) {
+            $this->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $player->getName(), $this->getConfig()->get("fake-leave-message", "&e{player} left the game."))));
+        }
     } else {
         unset($this->vanishedPlayers[$player->getName()]);
         $player->setInvisible(false);
-        
+
         if ($player->isCreative()) {
             $player->setAllowFlight(true);
         } else {
@@ -69,8 +74,11 @@ class BetterVanish extends PluginBase implements Listener {
         }
 
         $player->sendMessage(TF::colorize($this->getConfig()->get("prefix", "[BetterVanish] ") . $this->getConfig()->get("unvanish-message", "&aYou are now visible!")));
+        if ($this->getConfig()->get("fake-join-leave-message", true)) {
+            $this->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $player->getName(), $this->getConfig()->get("fake-join-message", "&e{player} joined the game."))));
+        }
     }
- }
+}
 
     public function onBlockBreak(BlockBreakEvent $event): void {
         if (!$this->getConfig()->get("break-block", false)) {
