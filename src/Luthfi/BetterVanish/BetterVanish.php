@@ -37,29 +37,32 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     public function setVanished(Player $player, bool $vanish): void {
-        if ($vanish) {
-            $this->vanishedPlayers[] = $player->getName();
-            $player->setInvisible(true);
-            $player->setFlying(true);
-            $player->setAllowFlight(true);
-            $player->setMovementSpeed($this->getConfig()->get("vanish-fly-speed", 0.1));
-        } else {
-            $this->vanishedPlayers = array_diff($this->vanishedPlayers, [$player->getName()]);
-            $player->setInvisible(false);
-            $player->setFlying(false);
-            $player->setAllowFlight(false);
-            $player->setMovementSpeed(0.1);
-        }
+    $playerName = $player->getName();
 
-        $messageKey = $vanish ? "notify-vanish-message" : "notify-unvanish-message";
-        $message = str_replace("{player}", $player->getName(), $this->getConfig()->get($messageKey, ""));
+    if ($vanish) {
+        $this->vanishedPlayers[] = $playerName;
+        $player->setInvisible(true);
+        $player->setFlying(true);
+        $player->setAllowFlight(true);
+        $player->setMovementSpeed($this->getConfig()->get("vanish-fly-speed", 0.1));
 
-        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
-            if ($onlinePlayer->hasPermission("bettervanish.other")) {
-                $onlinePlayer->sendMessage($message);
-            }
+        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-vanish-message", ""));
+    } else {
+        $this->vanishedPlayers = array_diff($this->vanishedPlayers, [$playerName]);
+        $player->setInvisible(false);
+        $player->setFlying(false);
+        $player->setAllowFlight(false);
+        $player->setMovementSpeed(0.1);
+
+        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-unvanish-message", ""));
+    }
+
+    foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
+        if ($onlinePlayer->hasPermission("bettervanish.other")) {
+            $onlinePlayer->sendMessage($message);
         }
     }
+}
 
     public function onBlockBreak(BlockBreakEvent $event): void {
         if (!$this->getConfig()->get("break-block", false)) {
