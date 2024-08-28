@@ -35,14 +35,14 @@ class VanishCommand extends Command {
         $prefix = $config->get("prefix", "[BetterVanish] ");
 
         if ($isVanished) {
-            $sender->sendMessage(TF::colorize($prefix . $config->get("unvanish-message", "&aYou are now visible!")));
+            $sender->sendMessage(TF::colorize($prefix . $config->get("unvanish-message", "§aYou are now visible!")));
             if ($config->get("fake-join-leave-message", true)) {
-                $this->plugin->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $sender->getName(), $config->get("fake-join-message", "&e{player} joined the game."))));
+                $this->plugin->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $sender->getName(), $config->get("fake-join-message", "§e{player} joined the game."))));
             }
         } else {
-            $sender->sendMessage(TF::colorize($prefix . $config->get("vanish-message", "&aYou are now vanished!")));
+            $sender->sendMessage(TF::colorize($prefix . $config->get("vanish-message", "§aYou are now vanished!")));
             if ($config->get("fake-join-leave-message", true)) {
-                $this->plugin->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $sender->getName(), $config->get("fake-leave-message", "&e{player} left the game."))));
+                $this->plugin->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $sender->getName(), $config->get("fake-leave-message", "§e{player} left the game."))));
             }
         }
 

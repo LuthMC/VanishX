@@ -11,23 +11,22 @@ config-version: "1.0.0"
 
 prefix: "&b[BetterVanish] "
 
-vanish-message: "&aYou are now vanished!"
-unvanish-message: "&aYou are now visible!"
+vanish-message: "§aYou are now vanished!"
+unvanish-message: "§aYou are now visible!"
 
-notify-vanish-message: "&e{player} has vanished."
-notify-unvanish-message: "&e{player} is now visible."
+notify-vanish-message: "§e{player} has vanished."
+notify-unvanish-message: "§e{player} is now visible."
 
 # Message sent to all players when a player enable vanish.
 fake-join-leave-message: true
-fake-join-message: "&e{player} joined the game."
-fake-leave-message: "&e{player} left the game."
+fake-join-message: "§e{player} joined the game."
+fake-leave-message: "§e{player} left the game."
 
 # ==========================
 # Settings
 # ==========================
 
-# Set the fly speed multiplier when a player is vanished (Default: 0.1)
-vanish-fly-speed: 0.1
-
-# Set to true to make vanished players to block breaking & block placing.
+# Set to true to make vanished players can breaking block & placing block.
 break-block: true
+
+automatic-vanish-on-join: true
