@@ -28,3 +28,5 @@ fake-leave-message: "§e{player} left the game."
 
 # Set to true to make vanished players can breaking block & placing block.
 break-block: true
+
+automatic-vanish-on-join: true
