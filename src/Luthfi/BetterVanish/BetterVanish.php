@@ -43,10 +43,20 @@ class BetterVanish extends PluginBase implements Listener {
         $this->vanishedPlayers[] = $playerName;
         $player->setInvisible(true);
 
+        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
+            if (!$onlinePlayer->hasPermission("bettervanish.other")) {
+                $onlinePlayer->hidePlayer($player);
+            }
+        }
+
         $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-vanish-message", ""));
     } else {
         $this->vanishedPlayers = array_diff($this->vanishedPlayers, [$playerName]);
         $player->setInvisible(false);
+
+        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
+            $onlinePlayer->showPlayer($player);
+        }
 
         $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-unvanish-message", ""));
     }
