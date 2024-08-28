@@ -14,12 +14,27 @@ class EventListener implements Listener {
         $this->plugin = $plugin;
     }
 
-    public function onJoin(PlayerJoinEvent $event): void {
-        $player = $event->getPlayer();
-        if ($this->plugin->isVanished($player)) {
-            $event->setJoinMessage("");
+    public function onPlayerJoin(PlayerJoinEvent $event): void {
+    $player = $event->getPlayer();
+    $config = $this->plugin->getConfig();
+
+    if ($config->get("automatic-vanish-on-join", true) && $player->hasPermission("bettervanish.use")) {
+        $this->plugin->setVanished($player, true);
+        $player->sendMessage(TF::colorize($config->get("prefix", "[BetterVanish] ") . $config->get("vanish-message", "&aYou are now vanished!")));
+        if ($config->get("fake-join-leave-message", true)) {
+            $this->plugin->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $player->getName(), $config->get("fake-leave-message", "&e{player} left the game."))));
         }
     }
+
+    foreach ($this->plugin->getVanishedPlayers() as $vanishedPlayerName => $isVanished) {
+        if ($isVanished) {
+            $vanishedPlayer = $this->plugin->getServer()->getPlayerExact($vanishedPlayerName);
+            if ($vanishedPlayer !== null && !$player->hasPermission("bettervanish.other")) {
+                $player->hidePlayer($vanishedPlayer);
+            }
+        }
+    }
+}
 
     public function onQuit(PlayerQuitEvent $event): void {
         $player = $event->getPlayer();
