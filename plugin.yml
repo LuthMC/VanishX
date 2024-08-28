@@ -1,0 +1,26 @@
+name: BetterVanish
+main: Luthfi\BetterVanish\BetterVanish
+version: 1.0.0
+api: 5.0.0
+author: Luthfi
+description: A plugin that allow players to vanish.
+
+commands:
+  vanish:
+    description: Toggle vanish mode.
+    usage: /vanish
+    aliases: [v]
+    permission: bettervanish.use
+
+permissions:
+  bettervanish.use:
+    default: op
+    description: Allows the player to use the /vanish command.
+    
+  bettervanish.other:
+    default: op
+    description: Allows the player to see vanished players and receive notifications when players vanish.
+
+  bettervanish.break:
+    default: op
+    description: Allows the player to breaking blocks while vanished.
