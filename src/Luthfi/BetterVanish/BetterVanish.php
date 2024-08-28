@@ -37,29 +37,33 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     public function setVanished(Player $player, bool $vanish): void {
-    $playerName = $player->getName();
-
     if ($vanish) {
-        $this->vanishedPlayers[] = $playerName;
-        $player->setInvisible(true);
-        $player->setFlying(true);
-        $player->setAllowFlight(true);
-        $player->setMovementSpeed($this->getConfig()->get("vanish-fly-speed", 0.1));
+        $this->vanishedPlayers[$player->getName()] = $player;
+        if ($player->isCreative()) {
+            $player->setAllowFlight(true);
+        } else {
+            $flySpeed = $this->getConfig()->get("fly-speed", 1.0);
+            $player->setFlying(true);
+            $player->setFlySpeed($flySpeed);
+        }
 
-        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-vanish-message", ""));
+        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
+            if (!$onlinePlayer->hasPermission("bettervanish.other")) {
+                $onlinePlayer->hidePlayer($this, $player);
+            }
+        }
     } else {
-        $this->vanishedPlayers = array_diff($this->vanishedPlayers, [$playerName]);
-        $player->setInvisible(false);
-        $player->setFlying(false);
-        $player->setAllowFlight(false);
-        $player->setMovementSpeed(0.1);
+        unset($this->vanishedPlayers[$player->getName()]);
 
-        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-unvanish-message", ""));
-    }
+        if ($player->isCreative()) {
+            $player->setAllowFlight(true);
+        } else {
+            $player->setFlying(false);
+            $player->setFlySpeed(0.1);
+        }
 
-    foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
-        if ($onlinePlayer->hasPermission("bettervanish.other")) {
-            $onlinePlayer->sendMessage($message);
+        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
+            $onlinePlayer->showPlayer($this, $player);
         }
     }
 }
