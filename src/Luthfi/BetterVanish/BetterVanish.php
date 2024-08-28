@@ -49,12 +49,11 @@ class BetterVanish extends PluginBase implements Listener {
 
         foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
             if (!$onlinePlayer->hasPermission("bettervanish.other")) {
-                $onlinePlayer->hidePlayer($this, $player);
+                $onlinePlayer->hidePlayer($player);
             }
         }
     } else {
         unset($this->vanishedPlayers[$player->getName()]);
-
         if ($player->isCreative()) {
             $player->setAllowFlight(true);
         } else {
@@ -63,7 +62,7 @@ class BetterVanish extends PluginBase implements Listener {
         }
 
         foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
-            $onlinePlayer->showPlayer($this, $player);
+            $onlinePlayer->showPlayer($player);
         }
     }
 }
