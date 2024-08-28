@@ -13,7 +13,7 @@ permissions:
     
   bettervanish.other:
     default: op
-    description: Allows the player to see vanished players and receive notifications when players vanish.
+    description: Allows the player to receive notifications when players vanish.
 
   bettervanish.break:
     default: op
