@@ -26,8 +26,5 @@ fake-leave-message: "§e{player} left the game."
 # Settings
 # ==========================
 
-# Set the fly speed multiplier when a player is vanished (Default: 0.1)
-vanish-fly-speed: 0.1
-
-# Set to true to make vanished players to block breaking & block placing.
+# Set to true to make vanished players can breaking block & placing block.
 break-block: true
