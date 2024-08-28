@@ -11,16 +11,16 @@ config-version: "1.0.0"
 
 prefix: "&b[BetterVanish] "
 
-vanish-message: "&aYou are now vanished!"
-unvanish-message: "&aYou are now visible!"
+vanish-message: "§aYou are now vanished!"
+unvanish-message: "§aYou are now visible!"
 
-notify-vanish-message: "&e{player} has vanished."
-notify-unvanish-message: "&e{player} is now visible."
+notify-vanish-message: "§e{player} has vanished."
+notify-unvanish-message: "§e{player} is now visible."
 
 # Message sent to all players when a player enable vanish.
 fake-join-leave-message: true
-fake-join-message: "&e{player} joined the game."
-fake-leave-message: "&e{player} left the game."
+fake-join-message: "§e{player} joined the game."
+fake-leave-message: "§e{player} left the game."
 
 # ==========================
 # Settings
