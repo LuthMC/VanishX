@@ -11,7 +11,6 @@ use pocketmine\utils\Config;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\utils\TextFormat as TF;
 
 class BetterVanish extends PluginBase implements Listener {
 
@@ -38,44 +37,23 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     public function setVanished(Player $player, bool $vanish): void {
+    $playerName = $player->getName();
+
     if ($vanish) {
-        $this->vanishedPlayers[$player->getName()] = $player;
+        $this->vanishedPlayers[] = $playerName;
         $player->setInvisible(true);
 
-        if ($player->isCreative()) {
-            $player->setAllowFlight(true);
-        } else {
-            $player->setFlying(true);
-        }
-
-        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
-            if (!$onlinePlayer->hasPermission("bettervanish.other")) {
-                $onlinePlayer->hidePlayer($player);
-            }
-        }
-
-        $player->sendMessage(TF::colorize($this->getConfig()->get("prefix", "[BetterVanish] ") . $this->getConfig()->get("vanish-message", "&aYou are now vanished!")));
-
-        if ($this->getConfig()->get("fake-join-leave-message", true)) {
-            $this->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $player->getName(), $this->getConfig()->get("fake-leave-message", "&e{player} left the game."))));
-        }
+        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-vanish-message", ""));
     } else {
-        unset($this->vanishedPlayers[$player->getName()]);
+        $this->vanishedPlayers = array_diff($this->vanishedPlayers, [$playerName]);
         $player->setInvisible(false);
 
-        if ($player->isCreative()) {
-            $player->setAllowFlight(true);
-        } else {
-            $player->setFlying(false);
-        }
+        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-unvanish-message", ""));
+    }
 
-        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
-            $onlinePlayer->showPlayer($player);
-        }
-
-        $player->sendMessage(TF::colorize($this->getConfig()->get("prefix", "[BetterVanish] ") . $this->getConfig()->get("unvanish-message", "&aYou are now visible!")));
-        if ($this->getConfig()->get("fake-join-leave-message", true)) {
-            $this->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $player->getName(), $this->getConfig()->get("fake-join-message", "&e{player} joined the game."))));
+    foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
+        if ($onlinePlayer->hasPermission("bettervanish.other")) {
+            $onlinePlayer->sendMessage($message);
         }
     }
 }
