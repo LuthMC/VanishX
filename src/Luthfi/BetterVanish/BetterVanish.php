@@ -62,7 +62,7 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     public function onBlockBreak(BlockBreakEvent $event): void {
-        if (!$this->getConfig()->get("break-block", true)) {
+        if (!$this->getConfig()->get("break-block", false)) {
             return;
         }
 
@@ -73,7 +73,7 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     public function onBlockPlace(BlockPlaceEvent $event): void {
-        if (!$this->getConfig()->get("break-block", true)) {
+        if (!$this->getConfig()->get("break-block", false)) {
             return;
         }
 
@@ -84,7 +84,7 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     public function onPlayerInteract(PlayerInteractEvent $event): void {
-        if (!$this->getConfig()->get("break-block", true)) {
+        if (!$this->getConfig()->get("break-block", false)) {
             return;
         }
 
