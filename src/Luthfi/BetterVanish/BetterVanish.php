@@ -39,12 +39,12 @@ class BetterVanish extends PluginBase implements Listener {
     public function setVanished(Player $player, bool $vanish): void {
     if ($vanish) {
         $this->vanishedPlayers[$player->getName()] = $player;
+        $player->setInvisible(true);
+
         if ($player->isCreative()) {
             $player->setAllowFlight(true);
         } else {
-            $flySpeed = $this->getConfig()->get("fly-speed", 1.0);
             $player->setFlying(true);
-            $player->setFlySpeed($flySpeed);
         }
 
         foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
@@ -52,20 +52,25 @@ class BetterVanish extends PluginBase implements Listener {
                 $onlinePlayer->hidePlayer($player);
             }
         }
+
+        $player->sendMessage(TF::colorize($this->getConfig()->get("prefix", "[BetterVanish] ") . $this->getConfig()->get("vanish-message", "&aYou are now vanished!")));
     } else {
         unset($this->vanishedPlayers[$player->getName()]);
+        $player->setInvisible(false);
+        
         if ($player->isCreative()) {
             $player->setAllowFlight(true);
         } else {
             $player->setFlying(false);
-            $player->setFlySpeed(0.1);
         }
 
         foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
             $onlinePlayer->showPlayer($player);
         }
+
+        $player->sendMessage(TF::colorize($this->getConfig()->get("prefix", "[BetterVanish] ") . $this->getConfig()->get("unvanish-message", "&aYou are now visible!")));
     }
-}
+ }
 
     public function onBlockBreak(BlockBreakEvent $event): void {
         if (!$this->getConfig()->get("break-block", false)) {
