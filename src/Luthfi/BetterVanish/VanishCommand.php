@@ -12,7 +12,7 @@ class VanishCommand extends Command {
     private $plugin;
 
     public function __construct(BetterVanish $plugin) {
-        parent::__construct("vanish", "Toggle vanish mode", ["v"]);
+        parent::__construct("vanish", "Toggle vanish mode", "/vanish", ["v"]);
         $this->plugin = $plugin;
         $this->setPermission("bettervanish.use");
     }
