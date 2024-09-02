@@ -9,7 +9,7 @@ config-version: "1.0.0"
 # Messages
 # ==========================
 
-prefix: "&b[BetterVanish] "
+prefix: "§b[BetterVanish] "
 
 vanish-message: "§aYou are now vanished!"
 unvanish-message: "§aYou are now visible!"
@@ -28,5 +28,3 @@ fake-leave-message: "§e{player} left the game."
 
 # Set to true to make vanished players can breaking block & placing block.
 break-block: true
-
-automatic-vanish-on-join: true
