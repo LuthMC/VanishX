@@ -20,7 +20,7 @@ class BetterVanish extends PluginBase implements Listener {
         $this->saveDefaultConfig();
         $this->checkConfigVersion();
 
-        $this->getServer()->getCommandMap()->register("vanish", new VanishCommand($this));
+        $this->getServer()->getCommandMap()->register("BetterVanish", new VanishCommand($this));
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
