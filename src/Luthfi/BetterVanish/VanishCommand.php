@@ -19,7 +19,7 @@ class VanishCommand extends Command implements PluginOwned {
         $this->plugin = $plugin;
         $this->setPermission("bettervanish.use");
 
-        $this->setOwningPlugin($plugin);
+        $this->owningPlugin = $plugin;
     }
 
     public function execute(CommandSender $sender, string $label, array $args): bool {
