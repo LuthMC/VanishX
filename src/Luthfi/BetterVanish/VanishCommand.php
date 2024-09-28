@@ -6,8 +6,11 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\plugin\PluginOwned;
+use pocketmine\plugin\PluginOwnedTrait;
 
-class VanishCommand extends Command {
+class VanishCommand extends Command implements PluginOwned {
+    use PluginOwnedTrait;
 
     private $plugin;
 
@@ -15,6 +18,8 @@ class VanishCommand extends Command {
         parent::__construct("vanish", "Toggle vanish mode", "/vanish", ["v"]);
         $this->plugin = $plugin;
         $this->setPermission("bettervanish.use");
+
+        $this->setOwningPlugin($plugin);
     }
 
     public function execute(CommandSender $sender, string $label, array $args): bool {
