@@ -26,8 +26,8 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     private function checkConfigVersion(): void {
-        $configVersion = $this->getConfig()->get("config-version", "1.0.0");
-        if ($configVersion !== "1.0.0") {
+        $configVersion = $this->getConfig()->get("config-version", "1.1.0");
+        if ($configVersion !== "1.1.0") {
             $this->getLogger()->warning("Your config.yml is outdated. Please update it to the latest version.");
         }
     }
