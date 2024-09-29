@@ -3,7 +3,7 @@ build-by-default: true
 branches:
 - main
 projects:
-  BetterVanish:
+  VanishX:
     path: ""
     icon: icon.png
 ...
