@@ -1,21 +1,21 @@
-# BetterVanish Configuration
-# Github: https://github.com/LuthMC/BetterVanish
+# VanishX Configuration
+# Github: https://github.com/LuthMC/VanishX
 
 # DON'T CHANGE THIS!
-config-version: "1.0.0"
+config-version: "1.1.0"
 
 
 # ==========================
 # Messages
 # ==========================
 
-prefix: "§b[BetterVanish] "
+prefix: "§7[§bVanishX§7] "
 
-vanish-message: "§aYou are now vanished!"
+vanish-message: "§eYou are now vanished!"
 unvanish-message: "§aYou are now visible!"
 
 notify-vanish-message: "§e{player} has vanished."
-notify-unvanish-message: "§e{player} is now visible."
+notify-unvanish-message: "§a{player} is now visible."
 
 # Message sent to all players when a player enable vanish.
 fake-join-leave-message: true

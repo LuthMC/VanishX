@@ -1,20 +1,20 @@
-name: BetterVanish
-main: Luthfi\BetterVanish\BetterVanish
-version: 1.0.0
+name: VanishX
+main: Luthfi\VanishX\VanishX
+version: 1.1.0
 api: 5.0.0
 author: Luthfi
 description: A plugin that allow players to vanish.
-website: https://github.com/LuthMC/BetterVanish
+website: https://github.com/LuthMC/VanishX
 
 permissions:
-  bettervanish.use:
+  vanishx.use:
     default: op
-    description: Allows the player to use the /vanish command.
+    description: Allow player to use the /vanish command.
     
-  bettervanish.other:
+  vanishx.other:
     default: op
-    description: Allows the player to receive notifications when players vanish.
+    description: Allow player to receive notifications when players vanish.
 
-  bettervanish.break:
+  vanishx.break:
     default: op
-    description: Allows the player to breaking blocks while vanished.
+    description: Allow player to breaking blocks while vanished.

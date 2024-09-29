@@ -1,6 +1,6 @@
 <?php
 
-namespace Luthfi\BetterVanish;
+namespace Luthfi\VanishX;
 
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -15,9 +15,9 @@ class VanishCommand extends Command implements PluginOwned {
     private $plugin;
 
     public function __construct(BetterVanish $plugin) {
-        parent::__construct("vanish", "Toggle vanish mode", "/vanish", ["v"]);
+        parent::__construct("vanish", "Toggle vanish mode", "/vanish", ["v", "vanishlist"]);
         $this->plugin = $plugin;
-        $this->setPermission("bettervanish.use");
+        $this->setPermission("vanishx.use");
 
         $this->owningPlugin = $plugin;
     }
@@ -28,9 +28,14 @@ class VanishCommand extends Command implements PluginOwned {
             return false;
         }
 
-        if (!$sender->hasPermission("bettervanish.use")) {
+        if (!$sender->hasPermission("vanishx.use")) {
             $sender->sendMessage(TF::RED . "You don't have permission to use this command.");
             return false;
+        }
+
+        if (isset($args[0]) && $args[0] === "list") {
+            $this->sendVanishedList($sender);
+            return true;
         }
 
         $isVanished = $this->plugin->isVanished($sender);
@@ -49,8 +54,19 @@ class VanishCommand extends Command implements PluginOwned {
             if ($config->get("fake-join-leave-message", true)) {
                 $this->plugin->getServer()->broadcastMessage(TF::colorize(str_replace("{player}", $sender->getName(), $config->get("fake-leave-message", "§e{player} left the game."))));
             }
+
+            $sender->sendActionBarMessage(TF::colorize("§fYou are currently §bVANISHED"));
         }
 
         return true;
+    }
+
+    private function sendVanishedList(CommandSender $sender): void {
+        $vanishedPlayers = $this->plugin->getVanishedPlayers();
+        if (empty($vanishedPlayers)) {
+            $sender->sendMessage("§aNo players are currently vanished.");
+        } else {
+            $sender->sendMessage("§bCurrently vanished players: " . implode(", ", $vanishedPlayers));
+        }
     }
 }

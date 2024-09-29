@@ -1,6 +1,6 @@
 <?php
 
-namespace Luthfi\BetterVanish;
+namespace Luthfi\VanishX;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
@@ -10,7 +10,7 @@ class EventListener implements Listener {
 
     private $plugin;
 
-    public function __construct(BetterVanish $plugin) {
+    public function __construct(VanishX $plugin) {
         $this->plugin = $plugin;
     }
 
