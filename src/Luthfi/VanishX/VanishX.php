@@ -20,7 +20,7 @@ class BetterVanish extends PluginBase implements Listener {
         $this->saveDefaultConfig();
         $this->checkConfigVersion();
 
-        $this->getServer()->getCommandMap()->register("BetterVanish", new VanishCommand($this));
+        $this->getServer()->getCommandMap()->register("VanishX", new VanishCommand($this));
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
@@ -52,7 +52,7 @@ class BetterVanish extends PluginBase implements Listener {
         }
 
         foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
-            if ($onlinePlayer->hasPermission("bettervanish.other")) {
+            if ($onlinePlayer->hasPermission("vanishx.other")) {
                 $onlinePlayer->sendMessage($message);
             }
         }
