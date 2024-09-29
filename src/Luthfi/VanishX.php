@@ -37,26 +37,30 @@ class BetterVanish extends PluginBase implements Listener {
     }
 
     public function setVanished(Player $player, bool $vanish): void {
-    $playerName = $player->getName();
+        $playerName = $player->getName();
 
-    if ($vanish) {
-        $this->vanishedPlayers[] = $playerName;
-        $player->setInvisible(true);
+        if ($vanish) {
+            $this->vanishedPlayers[] = $playerName;
+            $player->setInvisible(true);
 
-        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-vanish-message", ""));
-    } else {
-        $this->vanishedPlayers = array_diff($this->vanishedPlayers, [$playerName]);
-        $player->setInvisible(false);
+            $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-vanish-message", ""));
+        } else {
+            $this->vanishedPlayers = array_diff($this->vanishedPlayers, [$playerName]);
+            $player->setInvisible(false);
 
-        $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-unvanish-message", ""));
-    }
+            $message = str_replace("{player}", $playerName, $this->getConfig()->get("notify-unvanish-message", ""));
+        }
 
-    foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
-        if ($onlinePlayer->hasPermission("bettervanish.other")) {
-            $onlinePlayer->sendMessage($message);
+        foreach ($this->getServer()->getOnlinePlayers() as $onlinePlayer) {
+            if ($onlinePlayer->hasPermission("bettervanish.other")) {
+                $onlinePlayer->sendMessage($message);
+            }
         }
     }
-}
+
+    public function getVanishedPlayers(): array {
+        return $this->vanishedPlayers;
+    }
 
     public function onBlockBreak(BlockBreakEvent $event): void {
         if (!$this->getConfig()->get("break-block", true)) {
