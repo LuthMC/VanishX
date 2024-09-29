@@ -5,6 +5,7 @@ namespace Luthfi\VanishX;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use Luthfi\VanishX\VanishX;
 
 class EventListener implements Listener {
 
