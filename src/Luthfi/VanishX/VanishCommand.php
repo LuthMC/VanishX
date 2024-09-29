@@ -1,6 +1,6 @@
 <?php
 
-namespace Luthfi\BetterVanish;
+namespace Luthfi\VanishX;
 
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -15,7 +15,7 @@ class VanishCommand extends Command implements PluginOwned {
     private $plugin;
 
     public function __construct(BetterVanish $plugin) {
-        parent::__construct("vanish", "Toggle vanish mode or view vanished players", "/vanish", ["v", "vanishlist"]);
+        parent::__construct("vanish", "Toggle vanish mode", "/vanish", ["v", "vanishlist"]);
         $this->plugin = $plugin;
         $this->setPermission("bettervanish.use");
 
