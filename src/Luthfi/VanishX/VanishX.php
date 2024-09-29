@@ -1,6 +1,6 @@
 <?php
 
-namespace Luthfi\BetterVanish;
+namespace Luthfi\VanishX;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
