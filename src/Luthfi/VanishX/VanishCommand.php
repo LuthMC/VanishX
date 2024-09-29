@@ -17,7 +17,7 @@ class VanishCommand extends Command implements PluginOwned {
     public function __construct(BetterVanish $plugin) {
         parent::__construct("vanish", "Toggle vanish mode", "/vanish", ["v", "vanishlist"]);
         $this->plugin = $plugin;
-        $this->setPermission("bettervanish.use");
+        $this->setPermission("vanishx.use");
 
         $this->owningPlugin = $plugin;
     }
@@ -28,7 +28,7 @@ class VanishCommand extends Command implements PluginOwned {
             return false;
         }
 
-        if (!$sender->hasPermission("bettervanish.use")) {
+        if (!$sender->hasPermission("vanishx.use")) {
             $sender->sendMessage(TF::RED . "You don't have permission to use this command.");
             return false;
         }
