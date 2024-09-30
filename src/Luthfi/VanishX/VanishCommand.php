@@ -14,7 +14,7 @@ class VanishCommand extends Command implements PluginOwned {
 
     private $plugin;
 
-    public function __construct(BetterVanish $plugin) {
+    public function __construct(VanishX $plugin) {
         parent::__construct("vanish", "Toggle vanish mode", "/vanish", ["v", "vanishlist"]);
         $this->plugin = $plugin;
         $this->setPermission("vanishx.use");
