@@ -12,7 +12,7 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 
-class BetterVanish extends PluginBase implements Listener {
+class VanishX extends PluginBase implements Listener {
 
     private $vanishedPlayers = [];
 
